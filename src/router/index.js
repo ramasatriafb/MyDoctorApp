@@ -16,6 +16,6 @@ const Router = () => {
             component={GetStarted}
             options={{headerShown: false}}/>
         </Stack.Navigator>
-    )
+    );
 };
 export default Router;

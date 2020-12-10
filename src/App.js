@@ -9,7 +9,9 @@ import {
   UploadPhoto,
   Doctor,
   Messages,
-  Hospitals
+  Hospitals,
+  ChooseDoctor,
+  Chatting,
 } from './pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from './components';
@@ -55,6 +57,14 @@ const App = () => {
             <Stack.Screen
             name = "MainApp"
             component={MainApp}
+            options={{headerShown: false}}/>
+            <Stack.Screen
+            name = "ChooseDoctor"
+            component={ChooseDoctor}
+            options={{headerShown: false}}/>
+            <Stack.Screen
+            name = "Chatting"
+            component={Chatting}
             options={{headerShown: false}}/>
         </Stack.Navigator>
     </NavigationContainer>

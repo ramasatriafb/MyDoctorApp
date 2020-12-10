@@ -1,15 +1,27 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { ILCatUmum } from '../../../assets';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { ILCatUmum, ILCatPsikiater, ILCatObat } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
-const DoctorCategory = () => {
+const DoctorCategory = ({category, onPress}) => {
+    const Icon = () => {
+        if(category === 'dokter umum'){
+            return <ILCatUmum style={styles.illustration} />;
+        }
+        if(category === 'psikiater'){
+            return <ILCatPsikiater style={styles.illustration} />;
+        }
+        if(category === 'dokter obat'){
+            return <ILCatObat style={styles.illustration} />;
+        }
+        return <ILCatUmum style={styles.illustration} />;
+    }
     return (
-        <View styles={styles.container}>
-            <ILCatUmum style={styles.illustration} />
+        <TouchableOpacity style={styles.container} onPress={onPress}>
+            <Icon />
             <Text style={styles.label}>Saya butuh</Text>
             <Text style={styles.category}>Dokter Umum</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -23,7 +35,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginRight: 10,
         width: 100,
-        height: 300,
+        height: 130,
     },
     illustration:{
         marginBottom: 28,

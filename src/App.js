@@ -38,7 +38,7 @@ const App = () => {
     <>
     <NavigationContainer>
       {/* <Router /> */}
-      <Stack.Navigator initialRouteName ="UploadPhoto">
+      <Stack.Navigator initialRouteName ="Register">
             <Stack.Screen
             name = "Splash"
             component={Splash}

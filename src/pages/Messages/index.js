@@ -1,9 +1,9 @@
 import React, {useState}from 'react'
-import { StyleSheet,View, Text } from 'react-native'
-import ListDoctor from '../../components/molecules/ListDoctor'
+import { StyleSheet,View, Text, ScrollView } from 'react-native'
+import List from '../../components/molecules/List'
 import { fonts, colors } from '../../utils';
 import {DummyDoctor1, DummyDoctor2, DummyDoctor4} from '../../assets';
-const Messages = () => {
+const Messages = ({navigation}) => {
     const [doctors] = useState([
         {
             id: 1,
@@ -20,22 +20,55 @@ const Messages = () => {
             profile: DummyDoctor1,
             name: 'Gatra Sulaiman',
             desc: 'Oke menurut pak dokter bagaimana unt...',
+        },{
+            id: 4,
+            profile: DummyDoctor1,
+            name: 'Gatra Sulaiman',
+            desc: 'Oke menurut pak dokter bagaimana unt...',
+        },{
+            id: 5,
+            profile: DummyDoctor1,
+            name: 'Gatra Sulaiman',
+            desc: 'Oke menurut pak dokter bagaimana unt...',
+        },{
+            id: 6,
+            profile: DummyDoctor1,
+            name: 'Gatra Sulaiman',
+            desc: 'Oke menurut pak dokter bagaimana unt...',
+        },{
+            id: 7,
+            profile: DummyDoctor1,
+            name: 'Gatra Sulaiman',
+            desc: 'Oke menurut pak dokter bagaimana unt...',
+        },{
+            id: 8,
+            profile: DummyDoctor1,
+            name: 'Gatra Sulaiman',
+            desc: 'Oke menurut pak dokter bagaimana unt...',
+        },{
+            id: 9,
+            profile: DummyDoctor1,
+            name: 'Gatra Sulaiman',
+            desc: 'Oke menurut pak dokter bagaimana unt...',
         },
     ]);
     return (
         <View style={styles.page}>
             <View style={styles.content}>
                 <Text style={styles.title}>Messages</Text>
+                <ScrollView showsVerticalScrollIndicator={false} style={styles.listWrapper}>
                 {doctors.map(doctor =>{
                         return (
-                        <ListDoctor
+                        <List
                         key={doctor.id}
                         profile={doctor.profile}
                         name={doctor.name}
                         desc={doctor.desc}
+                        onPress={()=>navigation.navigate('Chatting')}
                         />
                         );
-                    })};
+                    })}
+            </ScrollView>
             </View>
         </View>
     )
@@ -53,6 +86,9 @@ const styles = StyleSheet.create({
         flex: 1,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+    },
+    listWrapper:{
+        marginTop: 16,
     },
     title:{
         fontSize: 20,

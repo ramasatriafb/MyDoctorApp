@@ -1,26 +1,35 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Header, Button, Link, Gap } from '../../components';
-import { ILNullPhoto, IconAddPhoto } from '../../assets';
+import { ILNullPhoto, IconAddPhoto, IconRemovePhoto } from '../../assets';
 import { colors, fonts } from '../../utils';
+import ImagePicker from 'react-native-image-picker';
 
 const UploadPhoto = ({navigation}) => {
+    const [hasPhoto, setHasPhoto] = useState(false);
+    const getImage = () =>{
+        ImagePicker.launchImageLibrary((response) => {
+            // Same code as in above section!
+            console.log('response : ', response);
+        });
+    }
     return (
         <View style={styles.page}>
             <Header title="Upload Photo"  onPress={() => navigation.goBack()}/>
             <View style={styles.content}>
                 <View style= {styles.profile}>
-                    <View style={styles.avatarWrapper}>
+                    <TouchableOpacity onPress={getImage} style={styles.avatarWrapper}>
                         <Image style={styles.avatar} source={ILNullPhoto} />
-                        <IconAddPhoto style={styles.addPhoto}/>
-                    </View>
+                        {hasPhoto && <IconRemovePhoto style={styles.addPhoto}/>}
+                        {!hasPhoto && <IconAddPhoto style={styles.addPhoto}/>}
+                    </TouchableOpacity>
                     <Text style={styles.name}>Adelia Patra</Text>
                     <Text style={styles.profession}>Product Designer</Text>
                 </View>
                 <View>
-                    <Button title="Upload and Continue" />
+                    <Button disable title="Upload and Continue" onPress={() => navigation.replace('MainApp')}/>
                     <Gap height={30} />
-                    <Link title="Skip for this" align="center" size={16} />
+                    <Link title="Skip for this" align="center" size={16} onPress={() => navigation.replace('MainApp')} />
                 </View>
             </View>
         </View>

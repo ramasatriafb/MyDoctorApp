@@ -8,8 +8,7 @@ import {
     Gap
 } from '../../components';
 import { fonts, colors } from '../../utils';
-import {JSONDoctorCategory} from '../../assets';
-import { NavigationContainer } from '@react-navigation/native';
+import {JSONDoctorCategory, DummyDoctor2, DummyDoctor1, DummyDoctor3} from '../../assets';
 
 const Doctor = ({navigation}) => {
     return (
@@ -18,8 +17,8 @@ const Doctor = ({navigation}) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.wrapperSection}>
                         <Gap width={32} />
-                        <HomeProfile />
-                        <Text style={styles.welcome}>Mau konsulasi dengan siapa hari ini ? </Text>
+                        <HomeProfile onPress={()=>navigation.navigate('UserProfile')} />
+                        <Text style={styles.welcome}>Mau konsultasi dengan siapa hari ini ? </Text>
                     </View>
                     <View style={styles.wrapperScroll}>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -36,9 +35,9 @@ const Doctor = ({navigation}) => {
                     </View>
                     <View style={styles.wrapperSection}>
                         <Text style={styles.sectionLabel}>Top Rated Doctor</Text>
-                        <RatedDoctor />
-                        <RatedDoctor />
-                        <RatedDoctor />
+                        <RatedDoctor name="Alexandra Michelle" desc="Pediatrician" avatar={DummyDoctor2} onPress={() => navigation.navigate('DoctorProfile')} />
+                        <RatedDoctor name="Gatra Sulaiman" desc="Dentist" avatar={DummyDoctor1} onPress={() => navigation.navigate('DoctorProfile')} />
+                        <RatedDoctor name="Leticia Patra Lestari" desc="Nutrionist" avatar={DummyDoctor3} onPress={() => navigation.navigate('DoctorProfile')} />
                         <Text style={styles.sectionLabel}>Good News</Text>
                     </View>
                     <NewsItem />

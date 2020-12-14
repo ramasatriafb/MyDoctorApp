@@ -5,6 +5,7 @@ import { Button, Gap } from '../../components'
 import { colors, fonts } from '../../utils'
 
 const GetStarted = ({navigation}) => {
+
     return (
         <ImageBackground source= {ILGetStarted} style= {styles.page}>
             <View>

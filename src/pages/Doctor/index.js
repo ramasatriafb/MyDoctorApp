@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet,View, Text, ScrollView } from 'react-native'
 import {
     HomeProfile,
@@ -9,11 +9,19 @@ import {
 } from '../../components';
 import { fonts, colors, getData } from '../../utils';
 import {JSONDoctorCategory, DummyDoctor2, DummyDoctor1, DummyDoctor3} from '../../assets';
+import {ILNullPhoto} from '../../assets';
 
 const Doctor = ({navigation}) => {
+    const [profile, setProfile] = useState({
+        photo: ILNullPhoto,
+        fullName: '',
+        profession: '',
+    });
     useEffect(() => {
         getData('user').then(res =>{
-            console.log('datauser: ', res);
+            const data = res;
+            data.photo = res?.photo?.length > 1 ? {uri: res.photo} : ILNullPhoto;
+            setProfile(res);
         });
     },[]);
     return (

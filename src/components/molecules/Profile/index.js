@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { DummyUser, IconRemovePhoto, IconMale, IconFemale } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 
-const Profile = ({name, desc, sex, isRemove}) => {
+const Profile = ({name, desc, sex, isRemove, photo, onPress}) => {
     // const Icon =() =>{
     //     if(sex === 'male'){
     //         return <IconMale style={styles.iconPhoto}/>;
@@ -15,11 +15,20 @@ const Profile = ({name, desc, sex, isRemove}) => {
     // }
     return (
         <View style={styles.container}>
-            <View style={styles.borderProfile}>
-            <Image source={DummyUser} style={styles.avatar}/>
-            {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
-            {/* <Icon/> */}
-            </View>
+            {!isRemove && (
+                <View style={styles.borderProfile}>
+                <Image source={photo} style={styles.avatar}/>
+                {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
+                {/* <Icon/> */}
+                </View>
+            )}
+            {isRemove && (
+                 <TouchableOpacity style={styles.borderProfile} onPress={onPress}>
+                 <Image source={photo} style={styles.avatar}/>
+                 {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
+                 {/* <Icon/> */}
+                 </TouchableOpacity>
+            )}
             {
                 name && (
                     <View>

@@ -17,8 +17,10 @@ import {
   DoctorProfile,
 } from './pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BottomNavigator } from './components';
+import { BottomNavigator, Loading } from './components';
 import FlashMessage from "react-native-flash-message";
+import { Provider, useSelector } from 'react-redux';
+import store from './redux/store';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,7 +35,9 @@ const MainApp = () => {
   )
 }
 
-const App = () => {
+const SuperMainApp = () => {
+  const stateGlobal = useSelector(state => state);
+  console.log('state global : ', stateGlobal);
   return (
     <>
     <NavigationContainer>
@@ -86,8 +90,16 @@ const App = () => {
         </Stack.Navigator>
     </NavigationContainer>
     <FlashMessage position="top" />
+    {stateGlobal.loading && <Loading/>}
     </>
   );
 };
 
+const App = () => {
+  return (
+    <Provider store={store}>
+      <SuperMainApp/>
+    </Provider>
+  )
+}
 export default App;

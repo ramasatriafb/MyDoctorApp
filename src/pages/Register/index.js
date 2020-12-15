@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Header, Input, Button, Gap, Loading } from '../../components';
-import { colors, useForm, storeData, getData } from '../../utils';
+import { Header, Input, Button, Gap } from '../../components';
+import { colors, useForm, storeData, showError } from '../../utils';
 import { Fire } from '../../config';
-import { showMessage, hideMessage } from "react-native-flash-message";
+import {useDispatch } from 'react-redux';
 
 const Register = ({navigation}) => {
     const [form, setForm] = useForm({
@@ -13,16 +13,14 @@ const Register = ({navigation}) => {
         password: '',
     });
 
-    const[loading, setLoading] = useState(false);
-
-
+    const dispatch = useDispatch();
 
     const onContinue = ()=>{
         console.log(form);
-        setLoading(true);
+        dispatch({type: 'SET_LOADING', value: true});
         Fire.auth().createUserWithEmailAndPassword(form.email, form.password)
         .then((success)=>{
-            setLoading(false);
+            dispatch({type: 'SET_LOADING', value: false});
             setForm('reset');
             const data ={
                 fullName: form.fullName,
@@ -40,19 +38,12 @@ const Register = ({navigation}) => {
         })
         .catch((error) => {
                 const errorMessage = error.message;
-                setLoading(false);
-                showMessage({
-                    message: errorMessage,
-                    type: 'default',
-                    backgroundColor: colors.error,
-                    color: colors.white,
-                    duration: 2200,
-                });
+                dispatch({type: 'SET_LOADING', value: false});
+                showError(errorMessage);
                 console.log('error', error);
             });
         }
   return (
-    <>
         <View style={styles.page}>
             <Header title="Daftar Akun" onPress={() => navigation.goBack()}/>
             <View style={styles.content}>
@@ -69,8 +60,6 @@ const Register = ({navigation}) => {
                 </ScrollView>
             </View>
         </View>
-        {loading && <Loading/>}
-    </>
   );
 };
 

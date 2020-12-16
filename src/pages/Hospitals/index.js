@@ -26,7 +26,7 @@ const Hospitals = () => {
         <View style={styles.page}>
             <ImageBackground source={ILHospitalBG} style={styles.background}>
                 <Text style={styles.title}>Nearby Hospitals</Text>
-                <Text style={styles.desc}> {hospitals.length} Tersedia</Text>
+                <Text style={styles.desc}> {hospitals.length - 1} Tersedia</Text>
             </ImageBackground>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
                 {hospitals.map(item => {
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: -30,
         flex: 1,
-        paddingTop: 14,
+        // paddingTop: 14,
     },
 });

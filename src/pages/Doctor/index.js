@@ -19,14 +19,23 @@ const Doctor = ({navigation}) => {
         profession: '',
     });
     const [news, setNews] = useState([]);
-
+    const [categoryDoctor, setCategoryDoctor] = useState([]);
     useEffect(() => {
+        getUserData();
+        getNews();
+        getCategoryDoctor();
+
+    },[]);
+
+    const getUserData = () => {
         getData('user').then(res =>{
             const data = res;
             data.photo = res?.photo?.length > 1 ? {uri: res.photo} : ILNullPhoto;
             setProfile(res);
         });
+    }
 
+    const getNews = () => {
         Fire.database()
         .ref('news/')
         .once('value').
@@ -38,8 +47,21 @@ const Doctor = ({navigation}) => {
         }).catch(err =>{
             showError(err.message);
         });
+    }
 
-    },[]);
+    const getCategoryDoctor = () => {
+        Fire.database()
+        .ref('category_doc/')
+        .once('value').
+        then(res =>{
+            console.log(res.val());
+            if(res.val()){
+                setCategoryDoctor(res.val());
+            }
+        }).catch(err =>{
+            showError(err.message);
+        });
+    }
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -53,7 +75,7 @@ const Doctor = ({navigation}) => {
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             <View style={styles.category}>
                                 <Gap width={32} />
-                                {JSONDoctorCategory.data.map(item => {
+                                {categoryDoctor.map(item => {
                                     return(
                                         <DoctorCategory key={item.id} category={item.category} onPress={() => navigation.navigate('ChooseDoctor')}/>
                                     );
@@ -71,8 +93,8 @@ const Doctor = ({navigation}) => {
                     </View>
                     {news.map(item => {
                         return (
-                            <NewsItem
-                            key={item.id}
+                            <NewsItem key={item.id}
+                            // key={item.id}
                             title={item.title}
                             date={item.date}
                             image={item.image}

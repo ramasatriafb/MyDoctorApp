@@ -5,13 +5,13 @@ import { colors, fonts } from '../../../utils';
 
 const DoctorCategory = ({category, onPress}) => {
     const Icon = () => {
-        if(category === 'dokter umum'){
+        if(category === 'Dokter Umum'){
             return <ILCatUmum style={styles.illustration} />;
         }
-        if(category === 'psikiater'){
+        if(category === 'Psikiater'){
             return <ILCatPsikiater style={styles.illustration} />;
         }
-        if(category === 'dokter obat'){
+        if(category === 'Dokter Obat'){
             return <ILCatObat style={styles.illustration} />;
         }
         return <ILCatUmum style={styles.illustration} />;
@@ -20,7 +20,7 @@ const DoctorCategory = ({category, onPress}) => {
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <Icon />
             <Text style={styles.label}>Saya butuh</Text>
-            <Text style={styles.category}>Dokter Umum</Text>
+            <Text style={styles.category}>{category}</Text>
         </TouchableOpacity>
     )
 }

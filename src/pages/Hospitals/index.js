@@ -1,24 +1,51 @@
-import React from 'react'
+import React ,{useState,useEffect} from 'react'
 import { StyleSheet,View, Text, ImageBackground, ScrollView } from 'react-native'
 import {ILHospitalBG} from '../../assets/ilustration';
-import { fonts, colors } from '../../utils';
+import { fonts, colors, showError } from '../../utils';
 import { ListHospital } from '../../components';
-import { DummyHospitals1, DummyHospitals2, DummyHospitals3 } from '../../assets';
+// import { DummyHospitals1, DummyHospitals2, DummyHospitals3 } from '../../assets';
+import {Fire} from '../../config';
 
 const Hospitals = () => {
+    const [hospitals, setHospitals] = useState([]);
+    useEffect(() => {
+        Fire.database()
+        .ref('hospitals/')
+        .once('value').
+        then(res =>{
+            console.log(res.val());
+            if(res.val()){
+                setHospitals(res.val());
+            }
+        }).catch(err =>{
+            showError(err.message);
+        });
+
+    });
     return (
         <View style={styles.page}>
             <ImageBackground source={ILHospitalBG} style={styles.background}>
                 <Text style={styles.title}>Nearby Hospitals</Text>
-                <Text style={styles.desc}>3 Tersedia</Text>
+                <Text style={styles.desc}> {hospitals.length} Tersedia</Text>
             </ImageBackground>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-              <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
+                {hospitals.map(item => {
+                    return (
+                        <ListHospital
+                        key={item.id}
+                        name={item.name}
+                        type={item.category}
+                        address={item.address}
+                        pic={item.image}
+                        />
+                    );
+                })}
+              {/* <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
               <ListHospital pic={DummyHospitals2} type='Rumah Sakit Anak' name="Happy Family & Kids" address="Jln. Surya Sejahtera 20"/>
               <ListHospital pic={DummyHospitals3} type='Rumah Jiwa' name="Tingkatan Paling Atas" address="Jln. Surya Sejahtera 20"/>
               <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
               <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
-              <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
+              <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/> */}
             </ScrollView>
         </View>
     )

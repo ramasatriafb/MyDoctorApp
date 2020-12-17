@@ -1,13 +1,20 @@
-import React from 'react'
-import { StyleSheet, View, TextInput } from 'react-native'
-import { colors, fonts } from '../../../utils'
-import { Button } from '../../atoms'
+import React from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
+import { colors, fonts } from '../../../utils';
+import { Button } from '../../atoms';
 
-const InputChat = () => {
+const InputChat = ({value, onChangeText, onButtonPress, targetChat}) => {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} placeholder="Tulis Pesan Untuk Gatra"/>
-            <Button type="btn-icon-send" disable />
+            <TextInput style={styles.input}
+                placeholder={`Tulis Pesan Untuk ${targetChat.data.fullName}`}
+                value={value}
+                onChangeText={onChangeText}/>
+            <Button
+                type="btn-icon-send"
+                disable={value.length < 1}
+                onPress={onButtonPress}
+            />
         </View>
     )
 }
@@ -18,6 +25,7 @@ const styles = StyleSheet.create({
     container:{
         padding: 16,
         flexDirection: 'row',
+        backgroundColor: colors.white,
     },
     input:{
         backgroundColor: colors.disable,

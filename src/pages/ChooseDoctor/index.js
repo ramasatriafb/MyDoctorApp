@@ -1,87 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, ScrollView, View } from 'react-native'
 import { colors } from '../../utils'
 import { Header, List } from '../../components'
 import { DummyDoctor1 } from '../../assets'
+import { Fire } from '../../config'
 
-const ChooseDoctor = ({navigation}) => {
-    return (
-      <View style={styles.page}>
-        <Header type="dark" title="Pilih Dokter Anak" onPress={() => navigation.goBack()}/>
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.listWrapper}>
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-          <List
-            type="next"
-            profile={DummyDoctor1}
-            name="Gatra Sulaiman"
-            desc="Pria"
-            onPress={() => navigation.navigate('Chatting')}
-          />
-        </ScrollView>
-      </View>
-    )
+const ChooseDoctor = ({navigation, route}) => {
+  const itemCategory = route.params;
+  const [listDoctor, setListDoctor] = useState([]);
+  useEffect(() => {
+    callDoctorByCategory(itemCategory.category);
+  }, []);
+
+  const callDoctorByCategory = (category) => {
+    Fire.database()
+    .ref('doctors/')
+    .orderByChild('category')
+    .equalTo(category)
+    .once('value')
+    .then(res => {
+      const oldData = res.val();
+      const data = [];
+      Object.keys(oldData).map(key => {
+          data.push({
+              id: key,
+              data: oldData[key]
+          });
+      });
+      setListDoctor(data);
+    })
+  };
+  return (
+    <View style={styles.page}>
+      <Header type="dark" title={`Pilih ${itemCategory.category}`} onPress={() => navigation.goBack()}/>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.listWrapper}>
+      {listDoctor.map(doctor => {
+            return (
+                <List
+                type="next"
+                key={doctor.id}
+                profile={{uri: doctor.data.photo}}
+                name={doctor.data.fullName}
+                desc={doctor.data.gender}
+                onPress={() => navigation.navigate('DoctorProfile', doctor)}
+                />
+            );
+        })}
+      </ScrollView>
+    </View>
+  )
 }
 
 export default ChooseDoctor;

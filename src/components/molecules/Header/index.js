@@ -4,9 +4,13 @@ import { Gap, Button } from '../../atoms';
 import { colors, fonts } from '../../../utils';
 import DarkProfile from './DarkProfile';
 
-const Header = ({onPress, title, type}) => {
+const Header = ({onPress, title, type, desc, photo}) => {
     if(type === 'dark-profile'){
-        return <DarkProfile onPress={onPress}/>
+        return <DarkProfile
+        onPress={onPress}
+        title={title}
+        desc={desc}
+        photo={photo}/>
     }
     return (
         <View style={styles.container(type)}>
@@ -39,6 +43,7 @@ const styles = StyleSheet.create({
             fontSize: 20,
             fontFamily: fonts.primary[600],
             color: type === 'dark' ? colors.white : colors.text.primary,
+            textTransform: 'capitalize',
         }
     ),
 })

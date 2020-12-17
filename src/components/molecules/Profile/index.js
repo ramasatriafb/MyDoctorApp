@@ -4,29 +4,29 @@ import { DummyUser, IconRemovePhoto, IconMale, IconFemale } from '../../../asset
 import { colors, fonts } from '../../../utils'
 
 const Profile = ({name, desc, sex, isRemove, photo, onPress}) => {
-    // const Icon =() =>{
-    //     if(sex === 'male'){
-    //         return <IconMale style={styles.iconPhoto}/>;
-    //     }
-    //     if(sex === 'female'){
-    //         return <IconFemale style={styles.iconPhoto}/>;
-    //     }
-    //     return <IconRemovePhoto style={styles.iconPhoto}/>;
-    // }
+    const Icon =() =>{
+        if(sex === 'pria'){
+            return <IconMale style={styles.iconPhoto}/>;
+        }
+        if(sex === 'wanita'){
+            return <IconFemale style={styles.iconPhoto}/>;
+        }
+        return <IconRemovePhoto style={styles.iconPhoto}/>;
+    }
     return (
         <View style={styles.container}>
             {!isRemove && (
                 <View style={styles.borderProfile}>
                 <Image source={photo} style={styles.avatar}/>
                 {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
-                {/* <Icon/> */}
+                <Icon/>
                 </View>
             )}
             {isRemove && (
                  <TouchableOpacity style={styles.borderProfile} onPress={onPress}>
                  <Image source={photo} style={styles.avatar}/>
                  {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
-                 {/* <Icon/> */}
+                 <Icon/>
                  </TouchableOpacity>
             )}
             {

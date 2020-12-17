@@ -15,11 +15,11 @@ const UploadPhoto = ({navigation, route}) => {
         ImagePicker.launchImageLibrary(
             {quality: 0.5, maxHeight: 200, maxWidth: 200},
             response => {
-            console.log('response : ', response);
+            // console.log('response : ', response);
             if(response.didCancel || response.error){
                 showError('Ooop, sepertinya anda tidak memilih foto');
             }else{
-                console.log('response getImage: ', response);
+                // console.log('response getImage: ', response);
                 setPhotoForDB(`data:${response.type};base64, ${response.data}`);
                 const source = {uri: response.uri};
                 setPhoto(source);

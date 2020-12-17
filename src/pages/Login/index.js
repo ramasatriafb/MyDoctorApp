@@ -13,10 +13,10 @@ const Login = ({navigation}) => {
   const login =() =>{
     dispatch({type: 'SET_LOADING', value: true});
     Fire.auth().signInWithEmailAndPassword(form.email, form.password).then(res=>{
-      console.log('success', res);
+      // console.log('success', res);
       dispatch({type: 'SET_LOADING', value: false});
       Fire.database().ref(`users/${res.user.uid}/`).once('value').then(resDB =>{
-        console.log('data user: ',resDB);
+        // console.log('data user: ',resDB);
         if(resDB.val()){
           storeData('user', resDB.val());
           navigation.replace('MainApp');

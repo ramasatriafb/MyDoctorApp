@@ -13,7 +13,7 @@ const Hospitals = () => {
         .ref('hospitals/')
         .once('value').
         then(res =>{
-            console.log(res.val());
+            // console.log(res.val());
             if(res.val()){
                 setHospitals(res.val());
             }
@@ -32,7 +32,7 @@ const Hospitals = () => {
                 {hospitals.map(item => {
                     return (
                         <ListHospital
-                        key={item.id}
+                        key={item.name}
                         name={item.name}
                         type={item.category}
                         address={item.address}
@@ -40,12 +40,6 @@ const Hospitals = () => {
                         />
                     );
                 })}
-              {/* <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
-              <ListHospital pic={DummyHospitals2} type='Rumah Sakit Anak' name="Happy Family & Kids" address="Jln. Surya Sejahtera 20"/>
-              <ListHospital pic={DummyHospitals3} type='Rumah Jiwa' name="Tingkatan Paling Atas" address="Jln. Surya Sejahtera 20"/>
-              <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
-              <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/>
-              <ListHospital pic={DummyHospitals1} type='Rumah Sakit' name="Citra Bunga Merdeka" address="Jln. Surya Sejahtera 20"/> */}
             </ScrollView>
         </View>
     )

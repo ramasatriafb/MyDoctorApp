@@ -16,7 +16,7 @@ const Register = ({navigation}) => {
     const dispatch = useDispatch();
 
     const onContinue = ()=>{
-        console.log(form);
+        // console.log(form);
         dispatch({type: 'SET_LOADING', value: true});
         Fire.auth().createUserWithEmailAndPassword(form.email, form.password)
         .then((success)=>{
@@ -34,13 +34,13 @@ const Register = ({navigation}) => {
             .set(data);
             storeData('user', data);
             navigation.navigate('UploadPhoto', data);
-            console.log('register success:', success);
+            // console.log('register success:', success);
         })
         .catch((error) => {
                 const errorMessage = error.message;
                 dispatch({type: 'SET_LOADING', value: false});
                 showError(errorMessage);
-                console.log('error', error);
+                // console.log('error', error);
             });
         }
   return (

@@ -21,7 +21,7 @@ import { BottomNavigator, Loading } from './components';
 import FlashMessage from "react-native-flash-message";
 import { Provider, useSelector } from 'react-redux';
 import store from './redux/store';
-import {LogBox } from 'react-native';
+import { LogBox } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,7 +38,7 @@ const MainApp = () => {
 
 const SuperMainApp = () => {
   const stateGlobal = useSelector(state => state);
-  LogBox.ignoreLogs(['Warning: Setting a timer']);
+  LogBox.ignoreLogs(['Setting a timer']);
   return (
     <>
     <NavigationContainer>

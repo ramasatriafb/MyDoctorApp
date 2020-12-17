@@ -19,16 +19,18 @@ const ChooseDoctor = ({navigation, route}) => {
     .equalTo(category)
     .once('value')
     .then(res => {
-      const oldData = res.val();
-      const data = [];
-      Object.keys(oldData).map(key => {
+      if (res.val()) {
+        const oldData = res.val();
+        const data = [];
+        Object.keys(oldData).map(item => {
           data.push({
-              id: key,
-              data: oldData[key]
+            id: item,
+            data: oldData[item],
           });
-      });
-      setListDoctor(data);
-    })
+        });
+        setListDoctor(data);
+      }
+    });
   };
   return (
     <View style={styles.page}>

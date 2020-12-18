@@ -13,20 +13,44 @@ const Profile = ({name, desc, sex, isRemove, photo, onPress}) => {
         }
         return <IconRemovePhoto style={styles.iconPhoto}/>;
     }
+    if(sex){
+        return (
+            <View style={styles.container}>
+                {!isRemove && (
+                    <View style={styles.borderProfile}>
+                    <Image source={photo} style={styles.avatar}/>
+                    <Icon/>
+                    </View>
+                )}
+                {isRemove && (
+                     <TouchableOpacity style={styles.borderProfile} onPress={onPress}>
+                     <Image source={photo} style={styles.avatar}/>
+                     {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
+                     <Icon/>
+                     </TouchableOpacity>
+                )}
+                {
+                    name && (
+                        <View>
+                            <Text style={styles.name}>{name}</Text>
+                            <Text style={styles.profession}>{desc}</Text>
+                        </View>
+                    )
+                }
+            </View>
+        )
+    }
     return (
         <View style={styles.container}>
             {!isRemove && (
                 <View style={styles.borderProfile}>
                 <Image source={photo} style={styles.avatar}/>
-                {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
-                <Icon/>
                 </View>
             )}
             {isRemove && (
                  <TouchableOpacity style={styles.borderProfile} onPress={onPress}>
                  <Image source={photo} style={styles.avatar}/>
                  {isRemove &&  <IconRemovePhoto style={styles.iconPhoto}/>}
-                 <Icon/>
                  </TouchableOpacity>
             )}
             {
@@ -38,7 +62,6 @@ const Profile = ({name, desc, sex, isRemove, photo, onPress}) => {
                 )
             }
         </View>
-
     )
 }
 

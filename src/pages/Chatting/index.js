@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { colors, fonts, getData, showError, getChatTime, setDateChat } from '../../utils'
 import { Header, ChatItem, InputChat} from '../../components'
 import { Fire } from '../../config'
+import moment from "moment";
 
 const Chatting = ({navigation, route}) => {
   const dataDoctor = route.params;
@@ -101,9 +102,10 @@ const Chatting = ({navigation, route}) => {
       <View style={styles.content}>
           <ScrollView showsVerticalScrollIndicator={false}>
           {chatData.map(chat => {
+            const chatID =  moment(chat.id,'YYYY-MM-DD').format('ll');
             return (
               <View key={chat.id}>
-                <Text style={styles.chatDate}>{chat.id}</Text>
+                <Text style={styles.chatDate}>{chatID}</Text>
                 {chat.data.map(itemChat => {
                   const isMe = itemChat.data.sendBy === user.uid;
                   return (

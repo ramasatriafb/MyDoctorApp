@@ -51,7 +51,9 @@ const UpdateProfile = ({navigation}) => {
 
   const updateProfileData = () => {
     const data = profile;
-    data.photo = photoForDB;
+    if(photoForDB.length > 1){
+        data.photo = photoForDB;
+    }
     Fire.database()
       .ref(`users/${profile.uid}/`)
       .update(data)

@@ -56,7 +56,7 @@ const Doctor = ({navigation}) => {
 
   const getCategoryDoctor = () => {
     Fire.database()
-      .ref('category_doctor/')
+      .ref('category_doc/')
       .once('value')
       .then(res => {
         if (res.val()) {
@@ -89,7 +89,7 @@ const Doctor = ({navigation}) => {
   const getUserData = () => {
     getData('user').then(res => {
       const data = res;
-      console.log("USER = ", data);
+    //   console.log("USER", data);
       data.photo = res?.photo?.length > 1 ? {uri: res.photo} : ILNullPhoto;
       setProfile(res);
     });
